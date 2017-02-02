@@ -8,28 +8,26 @@ import { Storage } from '@ionic/storage';
 })
 export class ParamsPage {
 
-  color: any;
-
   constructor(public storage: Storage) {
-    this.color = storage.get('color');
 
-    if(!this.color){
-      storage.set('color', 'primary');
+    if(this.getColor() == undefined){
+      this.setColor('light');
     }
 
-    console.log(this.storage.get('color'));
-
+    console.log(this.getColor());
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParamsPage');
   }
 
-  changeColor(color){
-    this.color = color;
+  setColor(color){
     this.storage.set('color', color);
     console.log(this.storage.get('color'));
-    location.reload();
+  }
+
+  getColor(){
+    this.storage.get('color');
   }
 
 

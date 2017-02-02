@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="{{ getColor() }}">
     <ion-title>Parameters</ion-title>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -12,15 +12,15 @@
 
   <h3>Choose a theme</h3>
 
-  <button ng-click="changeColor('primary')" ion-button round color="primary">Primary</button>
+  <button (click)="setColor('primary')" ion-button round color="primary">Primary</button>
 
-  <button ng-click="changeColor('secondary')" ion-button round color="secondary">Secondary</button>
+  <button (click)="setColor('secondary')" ion-button round color="secondary">Secondary</button>
 
-  <button ng-click="changeColor('danger')" ion-button round color="danger">Danger</button>
+  <button (click)="setColor('danger')" ion-button round color="danger">Danger</button>
 
-  <button ng-click="changeColor('light')" ion-button round color="light">Light</button>
+  <button (click)="setColor('light')" ion-button round color="light">Light</button>
 
-  <button ng-click="changeColor('dark')" ion-button round color="dark">Dark</button>
+  <button (click)="setColor('dark')" ion-button round color="dark">Dark</button>
 
 
 </ion-content>

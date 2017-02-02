@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { ListPage } from '../list/list';
 
 @Component({
   selector: 'page-edit',
@@ -19,8 +20,10 @@ export class EditPage {
   titleHead: any;
   titleBody: any;
 
+  button: any;
 
-  constructor(af:AngularFire,
+  constructor(public navCtrl: NavController,
+              af:AngularFire,
               navParams: NavParams) {
     this.songs = af.database.list('/songs');
     this.songId = navParams.get("songId");
@@ -33,10 +36,15 @@ export class EditPage {
       this.titleBody = "Update your ";
       this.titleHead = "Update";
 
+      this.button = "Update !";
+
     } else {
 
       this.titleBody = "Register a new ";
       this.titleHead = "New";
+
+      this.button = "Add !";
+
     }
 
 
@@ -50,7 +58,7 @@ export class EditPage {
       album: song.album,
       artist: song.artist
     });
-    page.open()
+    this.navCtrl.setRoot(ListPage);
   }
 
   updateSong(form){
@@ -61,6 +69,7 @@ export class EditPage {
       album: song.album,
       artist: song.artist
     });
+    this.navCtrl.setRoot(ListPage);
   }
 
   isUpdate(){
@@ -68,6 +77,14 @@ export class EditPage {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Submit(form){
+    if(this.songId){
+      this.updateSong(form);
+    } else {
+      this.addSong(form);
     }
   }
 

@@ -1,5 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { Component } from '@angular/core';
 
 import {
   GoogleMap,

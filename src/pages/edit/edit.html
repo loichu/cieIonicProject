@@ -11,21 +11,26 @@
 
   <h3>{{ titleBody }} song</h3>
 
-  <form #form="ngForm" (ngSubmit)="addSong(form)" novalidate>
+  <form #form="ngForm" (ngSubmit)="Submit(form)" novalidate>
+
     <ion-item>
       <ion-label>Title</ion-label>
       <ion-input type="text" required [(ngModel)]="songTitle" ngControl="title" name="title"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Artist</ion-label>
       <ion-input type="text" [(ngModel)]="songAlbum" ngControl="album" name="album"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Album</ion-label>
       <ion-input type="text" [(ngModel)]="songArtist" ngControl="artist" name="artist"></ion-input>
     </ion-item>
-    <button *ngIf="!isUpdate()" ion-button type="submit" block>Add !</button>
-    <button *ngIf="isUpdate()" ion-button ng-click="updateSong(form)" block>Update !</button>
+
+    <button type="submit" ion-button block>{{ button }}</button>
+    <!--<button *ngIf="!isUpdate()" ion-button ng-click="addSong(form)" block>Add !</button>
+    <button *ngIf="isUpdate()" ion-button ng-click="updateSong(form)" block>Update !</button>-->
   </form>
 
   <!--<p>

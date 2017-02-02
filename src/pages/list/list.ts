@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { NavController, ActionSheetController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {EditPage} from "../edit/edit";
 
@@ -51,8 +51,11 @@ export class ListPage {
   }
 
   updateSong(songId, songTitle, songArtist, songAlbum){
-    // TODO: open EditPage with song's properties in field and update song
     this.navCtrl.push(EditPage, {songId:songId, songTitle:songTitle, songArtist:songArtist, songAlbum:songAlbum})
+  }
+
+  addSong(){
+    this.navCtrl.push(EditPage);
   }
 
 }
