@@ -1,38 +1,58 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {EditPage} from "../edit/edit";
 
 @Component({
-  selector: 'page-page2',
+  selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  songs: FirebaseListObservable<any>;
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(public navCtrl: NavController,
+              af:AngularFire,
+              public actionSheetCtrl: ActionSheetController) {
+    this.songs = af.database.list('/songs');
+    console.log(this.songs);
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
+  showOptions(songId, songTitle, songArtist, songAlbum) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What do you want to do?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.removeSong(songId);
+          }
+        },{
+          text: 'Update',
+          handler: () => {
+            this.updateSong(songId, songTitle, songArtist, songAlbum);
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
+    actionSheet.present();
   }
+
+  removeSong(songId: string){
+    this.songs.remove(songId);
+  }
+
+  updateSong(songId, songTitle, songArtist, songAlbum){
+    // TODO: open EditPage with song's properties in field and update song
+    this.navCtrl.push(EditPage, {songId:songId, songTitle:songTitle, songArtist:songArtist, songAlbum:songAlbum})
+  }
+
 }

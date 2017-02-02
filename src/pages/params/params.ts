@@ -1,22 +1,36 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the Params page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-params',
   templateUrl: 'params.html'
 })
 export class ParamsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  color: any;
+
+  constructor(public storage: Storage) {
+    this.color = storage.get('color');
+
+    if(!this.color){
+      storage.set('color', 'primary');
+    }
+
+    console.log(this.storage.get('color'));
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParamsPage');
   }
+
+  changeColor(color){
+    this.color = color;
+    this.storage.set('color', color);
+    console.log(this.storage.get('color'));
+    location.reload();
+  }
+
 
 }
