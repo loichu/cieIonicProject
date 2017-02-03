@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, ActionSheetController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {EditPage} from "../edit/edit";
+import { Splashscreen } from 'ionic-native';
 
 @Component({
   selector: 'page-list',
@@ -15,8 +16,14 @@ export class ListPage {
   constructor(public navCtrl: NavController,
               af:AngularFire,
               public actionSheetCtrl: ActionSheetController) {
+    Splashscreen.show();
     this.songs = af.database.list('/songs');
     console.log(this.songs);
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ParamsPage');
+    Splashscreen.hide();
   }
 
   showOptions(songId, songTitle, songArtist, songAlbum) {

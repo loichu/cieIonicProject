@@ -8,13 +8,17 @@ import { Storage } from '@ionic/storage';
 })
 export class ParamsPage {
 
+  color: any;
+
   constructor(public storage: Storage) {
 
     if(this.getColor() == undefined){
       this.setColor('light');
     }
 
-    console.log(this.getColor());
+    this.color = this.getColor();
+
+    console.log(this.color);
   }
 
   ionViewDidLoad() {
@@ -27,7 +31,7 @@ export class ParamsPage {
   }
 
   getColor(){
-    this.storage.get('color');
+    return this.storage.get('color');
   }
 
 
